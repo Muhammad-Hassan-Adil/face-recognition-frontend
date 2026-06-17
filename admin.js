@@ -186,7 +186,7 @@ const removeNameSelect = document.getElementById("remove-name");
 
 async function fetchUsers() {
     try {
-        const res = await fetch(`${SERVER_URL}/users`);
+        const res = await fetch(`${SERVER_URL}/users?site_ip=${currentSiteIp}`);
         const data = await res.json();
         
         if (data.status === "success") {
@@ -310,6 +310,7 @@ document.getElementById("add-employee-form").addEventListener("submit", async (e
     
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("site_ip", currentSiteIp);
     for (let i = 0; i < stagedPhotos.length; i++) {
         formData.append("files", stagedPhotos[i].data, `photo_${i}.jpg`);
     }
@@ -344,6 +345,7 @@ document.getElementById("update-employee-form").addEventListener("submit", async
     
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("site_ip", currentSiteIp);
     for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
     }
@@ -371,6 +373,7 @@ document.getElementById("remove-btn").addEventListener("click", async () => {
 
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("site_ip", currentSiteIp);
 
     try {
         const res = await fetch(`${SERVER_URL}/delete`, { method: "POST", body: formData });
