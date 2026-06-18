@@ -1,3 +1,3 @@
 window.ENV = {
-    SERVER_URL: 'http://39.37.165.88:8000'
+    SERVER_URL: 'https://distill-hatbox-coziness.ngrok-free.dev'
 };
