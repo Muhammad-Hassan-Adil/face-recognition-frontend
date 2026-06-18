@@ -16,7 +16,9 @@ let adminToken = "";
 async function fetchMyIp() {
     try {
         console.log("Fetching IP from:", `${SERVER_URL}/my_ip`);
-        const res = await fetch(`${SERVER_URL}/my_ip`);
+        const res = await fetch(`${SERVER_URL}/my_ip`, {
+            headers: { "ngrok-skip-browser-warning": "true" }
+        });
         
         if (!res.ok) {
             console.error("Failed to fetch IP. Server returned status:", res.status);
@@ -55,6 +57,7 @@ loginForm.addEventListener("submit", async (e) => {
         
         const res = await fetch(`${SERVER_URL}/login`, {
             method: "POST",
+            headers: { "ngrok-skip-browser-warning": "true" },
             body: formData
         });
         const data = await res.json();
@@ -111,7 +114,11 @@ document.getElementById("password-form").addEventListener("submit", async (e) =>
     formData.append("new_password", newPass);
     
     try {
-        const res = await fetch(`${SERVER_URL}/change_password`, { method: "POST", body: formData });
+        const res = await fetch(`${SERVER_URL}/change_password`, { 
+            method: "POST", 
+            headers: { "ngrok-skip-browser-warning": "true" }, 
+            body: formData 
+        });
         const data = await res.json();
         statusEl.innerText = data.message;
         statusEl.className = `status-text ${data.status === "success" ? "success-text" : "error-text"}`;
@@ -155,7 +162,7 @@ async function fetchLogs() {
     }
     
     try {
-        const res = await fetch(url);
+        const res = await fetch(url, { headers: { "ngrok-skip-browser-warning": "true" } });
         const data = await res.json();
         logsTableBody.innerHTML = "";
         
@@ -186,7 +193,9 @@ const removeNameSelect = document.getElementById("remove-name");
 
 async function fetchUsers() {
     try {
-        const res = await fetch(`${SERVER_URL}/users?site_ip=${currentSiteIp}`);
+        const res = await fetch(`${SERVER_URL}/users?site_ip=${currentSiteIp}`, { 
+            headers: { "ngrok-skip-browser-warning": "true" } 
+        });
         const data = await res.json();
         
         if (data.status === "success") {
@@ -316,7 +325,11 @@ document.getElementById("add-employee-form").addEventListener("submit", async (e
     }
 
     try {
-        const res = await fetch(`${SERVER_URL}/register`, { method: "POST", body: formData });
+        const res = await fetch(`${SERVER_URL}/register`, { 
+            method: "POST", 
+            headers: { "ngrok-skip-browser-warning": "true" }, 
+            body: formData 
+        });
         const data = await res.json();
         statusEl.innerText = data.message;
         statusEl.className = `status-text ${data.status === "success" ? "success-text" : "error-text"}`;
@@ -351,7 +364,11 @@ document.getElementById("update-employee-form").addEventListener("submit", async
     }
 
     try {
-        const res = await fetch(`${SERVER_URL}/update`, { method: "POST", body: formData });
+        const res = await fetch(`${SERVER_URL}/update`, { 
+            method: "POST", 
+            headers: { "ngrok-skip-browser-warning": "true" }, 
+            body: formData 
+        });
         const data = await res.json();
         statusEl.innerText = data.message;
         statusEl.className = `status-text ${data.status === "success" ? "success-text" : "error-text"}`;
@@ -376,7 +393,11 @@ document.getElementById("remove-btn").addEventListener("click", async () => {
     formData.append("site_ip", currentSiteIp);
 
     try {
-        const res = await fetch(`${SERVER_URL}/delete`, { method: "POST", body: formData });
+        const res = await fetch(`${SERVER_URL}/delete`, { 
+            method: "POST", 
+            headers: { "ngrok-skip-browser-warning": "true" }, 
+            body: formData 
+        });
         const data = await res.json();
         statusEl.innerText = data.message;
         statusEl.className = `status-text ${data.status === "success" ? "success-text" : "error-text"}`;

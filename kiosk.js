@@ -143,6 +143,7 @@ function sendToServer() {
         
         fetch(`${SERVER_URL}/verify_attendance`, {
             method: "POST",
+            headers: { "ngrok-skip-browser-warning": "true" },
             body: formData
         })
         .then(res => res.json())
